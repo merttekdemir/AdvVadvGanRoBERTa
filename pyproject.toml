@@ -1,0 +1,143 @@
+[tool.poetry]
+name = "adversarial-gan-bert"
+version = "0.1.0"
+description = "Adversarial techniques for fine-tuning LLMs with limited data"
+authors = ["Mert Tekdemir <contact@merttekdemir.com>"]
+
+[tool.poetry.dependencies]
+python = "~3.10"
+pydantic = { version = "~1.10.4", extras = ["dotenv"] }
+
+
+# ML Dependencies
+wandb = "*"
+numpy = "*"
+pandas = "*"
+torch = "*"
+torchmetrics = "*"
+pytorch_lightning = "*"
+transformers = "*"
+datasets = "*"
+sentencepiece = "*"
+scipy = "*"
+plotly = "*"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1"
+flake8 = "^6.0"
+isort = "^5.10"
+mypy = "^1.0"
+pydeps = "^1.10"
+pylint = "^2.15"
+rich = "^13.3.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# Linters' configuration
+
+# Black
+[tool.black]
+line-length = 100
+target-version = ['py310']
+exclude = '''
+(
+    \.idea |
+    \.DS_Store |
+    \.githooks |
+    \.vscode |
+    venv |
+    .html |
+    .json |
+    .pyc |
+    .sql
+)
+'''
+
+# iSort
+[tool.isort]
+profile = "black"
+line_length = 100
+
+# the following help isort imitate the behavior of PyCharm's optimize imports
+no_lines_before = "LOCALFOLDER"
+reverse_relative = true
+case_sensitive = true
+order_by_type = false
+combine_as_imports = true
+
+# MyPy
+[tool.mypy]
+python_version = "3.10"
+
+check_untyped_defs = true
+disallow_any_generics = false
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+enable_error_code = "unused-awaitable"
+implicit_reexport = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+plugins = "pydantic.mypy"
+
+[[tool.mypy.overrides]]
+disallow_untyped_calls = false
+ignore_missing_imports = true
+warn_return_any = false
+module = [
+    "asyncpg.*",
+    "catboost.*",
+    "google.*",
+    "kubernetes_asyncio.*",
+    "pandas.*",
+    "prometheus_client.*",
+    "pyarrow.*",
+    "rfc3339",
+    "sklearn.*",
+]
+
+#PyLint
+[tool.pylint.master]
+ignore = 'tests'
+disable = """
+    C0103, # invalid-name
+    C0114, # missing-module-docstring
+    C0301, # line-too-long (we use flake8 for this check)
+    C0330, # bad-continuation
+    C0415, # import-outside-toplevel
+    E1101, # no-member (too many false positives)
+    R0401, # cyclic-import (too many false positives)
+    R0901, # too-many-ancestors
+    R0902, # too-many-instance-attributes
+    R0903, # too-few-public-methods
+    R0913, # too-many-arguments
+    R0914, # too-many-locals
+    R0915, # too-many-statements
+    W0511, # fixme
+    W0703, # broad-except
+    W1202, # logging-format-interpolation
+    W1203, # logging-fstring-interpolation
+"""
+extension-pkg-whitelist = 'pydantic'
+
+[tool.pylint.similarities]
+# Minimum lines number of a similarity.
+min-similarity-lines = 15
+
+# Ignore comments when computing similarities.
+ignore-comments = 'yes'
+
+# Ignore docstrings when computing similarities.
+ignore-docstrings = 'yes'
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers"
+asyncio_mode = "auto"

@@ -1,0 +1,65 @@
+---
+hparams:
+  vadv-penalty:
+    - true
+    - false
+  adv-penalty:
+    - true
+    - false
+  use-generator:
+    - true
+    - false
+  num-labeled-examples:
+    - 1
+    - 3
+    - 5
+    - 10
+  seed:
+    - 42
+    - 43
+    - 44
+    - 45
+    - 46
+    - 420
+    - 430
+    - 440
+    - 450
+    - 460
+  batch-size:
+    - 32
+  max-seq-length:
+    - 129
+  balance-labeled-examples:
+    - true
+  pretrained-model-path:
+    - "castorini/afriberta_large"
+  num-labels:
+    - 5
+  num-hidden-layers-disc:
+    - 1
+  num-hidden-layers-gen:
+    - 1
+  noise-size:
+    - 100
+  out-dropout-rate:
+    - 0.2
+  learning-rate-discriminator:
+    - 0.00005
+  learning-rate-generator:
+    - 0.00005
+  pi:
+    - 1
+  adv-epsilon:
+    - 100
+  vadv-epsilon:
+    - 100
+  adv-coef:
+    - 0.001
+  vadv-coef:
+    - 0.001
+train-datapath: # [redacted]
+unsupervised-datapath: # [redacted]
+few-shot-datapath: # [redacted]
+test-datapath: # [redacted]
+...
+
